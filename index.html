@@ -89,10 +89,10 @@
             margin-bottom: 20px;
         }
         .logo-sekolah {
-            width: 80px; /* Saiz tidak terlalu besar */
+            width: 80px; 
             height: auto;
             display: block;
-            margin: 0 auto 10px auto; /* Berada tepat di tengah */
+            margin: 0 auto 10px auto; 
         }
         .school-name {
             font-size: 16pt;
@@ -124,7 +124,7 @@
         .action-box {
             border: 2px dashed #000;
             padding: 15px;
-            margin-top: 40px;
+            margin-top: 20px;
             font-family: Arial, sans-serif;
             font-size: 11pt;
             background-color: #fafafa;
@@ -139,7 +139,7 @@
             text-align: center;
             font-size: 9pt;
             color: #555;
-            margin-top: -30px;
+            margin-top: -10px;
             margin-bottom: 20px;
             background: white;
             display: inline-block;
@@ -147,6 +147,14 @@
         }
         .cut-line-wrapper {
             text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Page Break Class */
+        .page-break {
+            break-before: page;
+            page-break-before: always;
+            padding-top: 20px; /* Gives a little breathing room at the top of the new page */
         }
 
         /* Print Settings */
@@ -158,13 +166,18 @@
                 display: block;
             }
             .controls {
-                display: none; /* Hide the form when printing */
+                display: none; 
             }
             .letter-container {
                 box-shadow: none;
                 margin: 0;
                 padding: 15mm;
                 width: 100%;
+            }
+            /* Ensures the page break applies correctly when printing */
+            .page-break {
+                padding-top: 0;
+                margin-top: 0;
             }
             @page {
                 size: A4;
@@ -248,7 +261,7 @@
             </p>
 
             <p>
-                4. Sila lengkapkan dan kembalikan keratan maklum balas di bahagian bawah surat ini kepada pihak sekolah dalam kadar segera.
+                4. Sila lengkapkan dan kembalikan keratan maklum balas yang dilampirkan bersama surat ini kepada pihak sekolah dalam kadar segera.
             </p>
 
             <p>Kerjasama dan keprihatinan daripada pihak tuan/puan amat kami hargai.</p>
@@ -268,30 +281,32 @@
             </div>
         </div>
 
-        <div class="cut-line-wrapper">
-            <span class="cut-line-text">✂ POTONG DI SINI ✂</span>
-        </div>
-        
-        <div class="action-box">
-            <h4>Keratan Maklum Balas Ibu Bapa / Penjaga</h4>
-            <p>Kepada: Guru Penolong Kanan Hal Ehwal Murid SK Cherating</p>
-            <p>Saya, penjaga kepada <strong><span id="outStudentBox">[Nama Murid]</span></strong> dari kelas <strong><span id="outClassBox">[Kelas]</span></strong> mengambil maklum tentang isu disiplin yang dimaklumkan.</p>
+        <div class="page-break">
+            <div class="cut-line-wrapper">
+                <span class="cut-line-text">✂ POTONG DI SINI ✂</span>
+            </div>
             
-            <p>Tindakan / Langkah pembetulan yang telah saya ambil ke atas anak jagaan saya adalah:</p>
-            <div style="border-bottom: 1px dotted #000; height: 30px; width: 100%; margin-bottom: 10px;"></div>
-            <div style="border-bottom: 1px dotted #000; height: 30px; width: 100%; margin-bottom: 20px;"></div>
+            <div class="action-box">
+                <h4>Keratan Maklum Balas Ibu Bapa / Penjaga</h4>
+                <p>Kepada: Guru Penolong Kanan Hal Ehwal Murid SK Cherating</p>
+                <p>Saya, penjaga kepada <strong><span id="outStudentBox">[Nama Murid]</span></strong> dari kelas <strong><span id="outClassBox">[Kelas]</span></strong> mengambil maklum tentang isu disiplin yang dimaklumkan.</p>
+                
+                <p>Tindakan / Langkah pembetulan yang telah saya ambil ke atas anak jagaan saya adalah:</p>
+                <div style="border-bottom: 1px dotted #000; height: 30px; width: 100%; margin-bottom: 10px;"></div>
+                <div style="border-bottom: 1px dotted #000; height: 30px; width: 100%; margin-bottom: 20px;"></div>
 
-            <table style="width: 100%; margin-top: 30px;">
-                <tr>
-                    <td style="width: 60%;">
-                        Tandatangan: ...................................................<br><br>
-                        Nama Penjaga: ................................................
-                    </td>
-                    <td style="width: 40%; vertical-align: top;">
-                        Tarikh: ...................................................
-                    </td>
-                </tr>
-            </table>
+                <table style="width: 100%; margin-top: 30px;">
+                    <tr>
+                        <td style="width: 60%;">
+                            Tandatangan: ...................................................<br><br>
+                            Nama Penjaga: ................................................
+                        </td>
+                        <td style="width: 40%; vertical-align: top;">
+                            Tarikh: ...................................................
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
     </div>
@@ -305,12 +320,12 @@
             const classVal = document.getElementById('classInput').value;
             const issueVal = document.getElementById('issueInput').value;
 
-            // Format date (optional, making it look nicer like DD-MM-YYYY)
+            // Format date 
             let formattedDate = "[Tarikh]";
             if(dateVal) {
                 const dateObj = new Date(dateVal);
                 const day = String(dateObj.getDate()).padStart(2, '0');
-                const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Months are 0-11
+                const month = String(dateObj.getMonth() + 1).padStart(2, '0'); 
                 const year = dateObj.getFullYear();
                 formattedDate = `${day}/${month}/${year}`;
             }
