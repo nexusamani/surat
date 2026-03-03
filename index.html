@@ -71,13 +71,13 @@
         .letter-container {
             width: 210mm;
             min-height: 297mm;
-            padding: 15mm 20mm 15mm 20mm; 
+            padding: 15mm 20mm; 
             background: white;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             box-sizing: border-box;
             font-family: "Times New Roman", Times, serif;
-            font-size: 12pt; /* Saiz font asas 12pt */
-            line-height: 1.35; 
+            font-size: 12pt; /* Saiz tulisan asas surat ditetapkan ke 12pt */
+            line-height: 1.4; /* Jarak baris yang selesa untuk dibaca */
             position: relative;
         }
 
@@ -88,8 +88,8 @@
             align-items: center;
             gap: 20px; 
             border-bottom: 2px solid #000;
-            padding-bottom: 8px; 
-            margin-bottom: 10px; /* Dikurangkan untuk memberi ruang kepada perenggan */
+            padding-bottom: 10px; 
+            margin-bottom: 20px; /* Jarak yang luas antara kepala surat dan tarikh */
         }
         .letterhead-text {
             text-align: left; 
@@ -100,13 +100,13 @@
             display: block;
         }
         .school-name {
-            font-size: 14pt; /* Saiz font nama sekolah 14pt */
+            font-size: 14pt; /* Saiz font nama sekolah di kepala surat 14pt */
             font-weight: bold;
             margin: 0 0 5px 0;
             text-transform: uppercase;
         }
         .unit-name, .address-text {
-            font-size: 12pt; /* Saiz font sama dengan surat */
+            font-size: 12pt; /* Saiz 12pt sama seperti isi surat */
             margin: 2px 0;
             font-family: Arial, sans-serif;
             font-weight: normal;
@@ -115,32 +115,29 @@
             font-weight: bold;
         }
 
-        /* Letter Body */
-        .letter-body {
-            margin-bottom: 5px;
-        }
+        /* Letter Body - SPACING ADJUSTMENTS */
         .letter-body p {
-            margin-top: 16px; /* Jarak yang luas (ample spacing) antara setiap poin */
-            margin-bottom: 16px;
+            margin: 0 0 18px 0; /* Memberikan kelegaan (18px jarak) tepat di BAWAH setiap perenggan */
             text-align: justify;
         }
         .subject {
             font-weight: bold;
             text-transform: uppercase;
             text-decoration: underline;
-            margin: 12px 0;
+            margin: 20px 0; /* Jarak atas dan bawah tajuk supaya lebih menyerlah */
+            display: block;
         }
         
         /* Signature Section Fixes */
         .signature {
-            margin-top: 10px; /* Dikurangkan supaya muat 1 page */
+            margin-top: 10px; /* Dikurangkan sedikit supaya keseluruhan surat muat 1 muka surat */
         }
         .signature p {
             margin: 0; 
             line-height: 1.3;
         }
         .sign-space {
-            height: 25px; /* Ruang tandatangan yang cukup tapi jimat ruang */
+            height: 35px; /* Ruang untuk tandatangan basah */
         }
 
         /* Action Box (Tear-off slip) */
@@ -149,7 +146,7 @@
             padding: 20px;
             margin-top: 20px;
             font-family: Arial, sans-serif;
-            font-size: 12pt; /* Seragam 12pt */
+            font-size: 12pt;
             background-color: #fafafa;
         }
         .action-box h4 {
@@ -158,6 +155,7 @@
             text-transform: uppercase;
             font-size: 12pt;
             font-weight: bold;
+            margin-bottom: 15px;
         }
         .cut-line-text {
             text-align: center;
@@ -195,8 +193,8 @@
             .letter-container {
                 box-shadow: none;
                 margin: 0;
-                /* Memaksimumkan ruang cetakan dari atas dan bawah untuk selamatkan page 1 */
-                padding: 8mm 15mm 5mm 15mm; 
+                /* Margin cetakan dilaras: 10mm Atas, 15mm Kiri/Kanan, 5mm Bawah untuk memuatkan page 1 */
+                padding: 10mm 15mm 5mm 15mm; 
                 width: 100%;
                 min-height: auto; 
             }
@@ -255,7 +253,7 @@
         </div>
 
         <div class="letter-body">
-            <div style="text-align: right; margin-bottom: 10px;">
+            <div style="text-align: right; margin-bottom: 25px;">
                 Tarikh: <span id="outDate"><strong>[Tarikh]</strong></span>
             </div>
 
@@ -268,7 +266,7 @@
 
             <p>Tuan/Puan,</p>
 
-            <p class="subject">MAKLUMAN MASALAH DISIPLIN PELAJAR</p>
+            <span class="subject">MAKLUMAN MASALAH DISIPLIN PELAJAR</span>
 
             <p>
                 Dengan segala hormatnya, perkara di atas adalah dirujuk.
@@ -278,7 +276,7 @@
                 2. Adalah dimaklumkan bahawa anak jagaan tuan/puan didapati telah melakukan kesalahan disiplin di sekolah. Butiran kesalahan adalah seperti berikut:
             </p>
 
-            <p style="padding-left: 20px; font-weight: bold;">
+            <p style="padding-left: 30px; font-weight: bold; margin-bottom: 20px;">
                 <span id="outIssue">[Sila nyatakan isu disiplin di ruang borang sebelah kiri]</span>
             </p>
 
@@ -294,15 +292,19 @@
 
             <p>Sekian, terima kasih.</p>
 
-            <p><strong>"MALAYSIA MADANI"</strong><br>
-            <strong>"BERKHIDMAT UNTUK NEGARA"</strong></p>
+            <p>
+                <strong>"MALAYSIA MADANI"</strong><br>
+                <strong>"BERKHIDMAT UNTUK NEGARA"</strong>
+            </p>
 
             <div class="signature">
                 <p>Saya yang menjalankan amanah,</p>
                 <div class="sign-space"></div>
-                <p><strong>(PUAN ZAINON BINTI HAJI JUFRI)</strong><br>
-                Guru Penolong Kanan Hal Ehwal Murid<br>
-                Sekolah Kebangsaan Cherating</p>
+                <p>
+                    <strong>(PUAN ZAINON BINTI HAJI JUFRI)</strong><br>
+                    Guru Penolong Kanan Hal Ehwal Murid<br>
+                    Sekolah Kebangsaan Cherating
+                </p>
             </div>
         </div>
 
@@ -316,17 +318,17 @@
                 <p>Kepada: Guru Penolong Kanan Hal Ehwal Murid SK Cherating</p>
                 <p>Saya, penjaga kepada <strong><span id="outStudentBox">[Nama Murid]</span></strong> dari kelas <strong><span id="outClassBox">[Kelas]</span></strong> mengambil maklum tentang isu disiplin yang dimaklumkan.</p>
                 
-                <p>Tindakan / Langkah pembetulan yang telah saya ambil ke atas anak jagaan saya adalah:</p>
-                <div style="border-bottom: 1px dotted #000; height: 30px; width: 100%; margin-bottom: 15px;"></div>
-                <div style="border-bottom: 1px dotted #000; height: 30px; width: 100%; margin-bottom: 25px;"></div>
+                <p style="margin-top: 20px;">Tindakan / Langkah pembetulan yang telah saya ambil ke atas anak jagaan saya adalah:</p>
+                <div style="border-bottom: 1px dotted #000; height: 35px; width: 100%; margin-bottom: 15px;"></div>
+                <div style="border-bottom: 1px dotted #000; height: 35px; width: 100%; margin-bottom: 25px;"></div>
 
                 <table style="width: 100%; margin-top: 40px;">
                     <tr>
-                        <td style="width: 60%;">
-                            Tandatangan: ...................................................<br><br>
+                        <td style="width: 60%; line-height: 2;">
+                            Tandatangan: ...................................................<br>
                             Nama Penjaga: ................................................
                         </td>
-                        <td style="width: 40%; vertical-align: top;">
+                        <td style="width: 40%; vertical-align: top; line-height: 2;">
                             Tarikh: ...................................................
                         </td>
                     </tr>
