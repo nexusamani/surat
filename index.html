@@ -76,8 +76,8 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             box-sizing: border-box;
             font-family: "Times New Roman", Times, serif;
-            font-size: 11pt; /* Saiz font asas ditetapkan kepada 11pt */
-            line-height: 1.6; /* Jarak baris yang lebih luas (ample spacing) */
+            font-size: 10pt; /* Saiz font asas diturunkan kepada 10pt */
+            line-height: 1.6; 
             position: relative;
         }
 
@@ -95,18 +95,18 @@
             margin: 0 auto 10px auto; 
         }
         .school-name {
-            font-size: 13pt; /* Tepat 2pt lebih besar daripada font asas (11pt) */
+            font-size: 12pt; /* Tepat 2pt lebih besar daripada font asas (10pt) */
             font-weight: bold;
             margin: 0;
             text-transform: uppercase;
         }
         .unit-name {
-            font-size: 11pt;
+            font-size: 10pt;
             font-weight: bold;
             margin: 5px 0 0 0;
         }
         .address-text {
-            font-size: 11pt;
+            font-size: 10pt;
             margin: 2px 0;
             font-family: Arial, sans-serif;
         }
@@ -116,14 +116,15 @@
             margin-bottom: 20px;
         }
         .letter-body p {
-            margin-top: 12px; /* Jarak antara perenggan yang lebih luas */
-            margin-bottom: 12px;
+            margin-top: 18px; /* Jarak yang lebih jelas antara setiap poin */
+            margin-bottom: 18px;
+            text-align: justify;
         }
         .subject {
             font-weight: bold;
             text-transform: uppercase;
             text-decoration: underline;
-            margin: 20px 0;
+            margin: 25px 0;
         }
         .signature {
             margin-top: 40px;
@@ -135,14 +136,14 @@
             padding: 20px;
             margin-top: 20px;
             font-family: Arial, sans-serif;
-            font-size: 11pt;
+            font-size: 10pt;
             background-color: #fafafa;
         }
         .action-box h4 {
             margin-top: 0;
             text-align: center;
             text-transform: uppercase;
-            font-size: 11pt;
+            font-size: 10pt;
             font-weight: bold;
         }
         .cut-line-text {
@@ -164,7 +165,7 @@
         .page-break {
             break-before: page;
             page-break-before: always;
-            padding-top: 20mm; /* Ruang atas untuk muka surat 2 supaya tidak terlalu rapat */
+            padding-top: 15mm; 
         }
 
         /* Print Settings */
@@ -183,10 +184,10 @@
                 margin: 0;
                 padding: 10mm 20mm 15mm 20mm; /* Margin pencetak */
                 width: 100%;
-                height: auto;
+                min-height: auto; /* Memastikan tiada halaman kosong ketiga terhasil */
             }
             .page-break {
-                padding-top: 15mm;
+                padding-top: 15mm; /* Ruang atas muka surat 2 */
             }
             @page {
                 size: A4;
