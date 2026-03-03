@@ -58,6 +58,20 @@
             border: 1px dashed #b3d4fc;
             margin-bottom: 15px;
         }
+        .btn-clear {
+            width: 100%;
+            background: #dc3545;
+            color: white;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn-clear:hover { background: #c82333; }
+        
         .btn-print {
             width: 100%;
             background: #0056b3;
@@ -84,8 +98,8 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             box-sizing: border-box;
             font-family: "Times New Roman", Times, serif;
-            font-size: 10pt; /* Dikekalkan 10pt */
-            line-height: 1.4; /* Dikecilkan sedikit untuk memuatkan jadual */
+            font-size: 10pt; 
+            line-height: 1.4; 
             position: relative;
         }
 
@@ -130,7 +144,7 @@
             line-height: 1.4;
         }
         .letter-body p {
-            margin: 0 0 10px 0; /* Jarak antara perenggan dipadatkan */
+            margin: 0 0 10px 0; 
             text-align: justify;
         }
         .subject {
@@ -144,7 +158,7 @@
         /* Meeting Table Style */
         .meeting-table {
             width: 80%;
-            margin: 5px 0 10px 30px; /* Dipadatkan */
+            margin: 5px 0 10px 30px; 
             border-collapse: collapse;
         }
         .meeting-table td {
@@ -157,14 +171,34 @@
 
         /* Signature Section Fixes */
         .signature {
-            margin-top: 10px; 
+            margin-top: 5px; 
         }
         .signature p {
             margin: 0; 
             line-height: 1.3;
         }
         .sign-space {
-            height: 25px; /* Ruang tandatangan dilaras supaya tidak menolak ke page 2 */
+            position: relative;
+            height: 55px; 
+            width: 200px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        #sigCanvas {
+            border: 1px dashed #ccc;
+            border-radius: 4px;
+            cursor: crosshair;
+            background-color: #fdfdfd;
+        }
+        #sigHelp {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8pt;
+            color: #aaa;
+            pointer-events: none; /* Let clicks pass through to canvas */
+            text-align: center;
         }
 
         /* Action Box (Tear-off slip) */
@@ -205,11 +239,11 @@
             break-before: page;
         }
 
-        /* Print Settings (Sangat penting untuk mengelak Page 3) */
+        /* Print Settings */
         @media print {
             @page {
                 size: A4;
-                margin: 0; /* Buang header/footer default browser */
+                margin: 0; 
             }
             html, body {
                 margin: 0;
@@ -222,13 +256,21 @@
             .letter-container {
                 box-shadow: none;
                 margin: 0;
-                padding: 10mm 15mm 0mm 15mm; /* Padding bawah dibuang terus untuk selamatkan ruang */
+                padding: 10mm 15mm 0mm 15mm; 
                 width: 100%;
                 height: auto;
                 min-height: auto; 
             }
             .page-break {
-                padding-top: 10mm; /* Ruang bernafas di awal page 2 */
+                padding-top: 10mm; 
+            }
+            /* Clean up canvas for printing */
+            #sigCanvas {
+                border: none !important;
+                background-color: transparent !important;
+            }
+            #sigHelp {
+                display: none !important;
             }
         }
     </style>
@@ -290,6 +332,12 @@
                 <label for="meetPlaceInput">Tempat Perjumpaan:</label>
                 <input type="text" id="meetPlaceInput" value="Bilik PK HEM, SK Cherating" oninput="updateLetter()">
             </div>
+        </div>
+
+        <div class="form-group" style="border-top: 1px solid #ddd; padding-top: 10px;">
+            <label>Tandatangan Digital PK HEM:</label>
+            <span style="font-size: 0.8rem; color: #666; display: block; margin-bottom: 5px;">*Lukis terus pada ruang tandatangan di surat, atau biarkan kosong untuk sign manual.</span>
+            <button type="button" class="btn-clear" onclick="clearSignature()">Padam & Buat Semula</button>
         </div>
 
         <button class="btn-print" onclick="window.print()">Cetak Surat</button>
@@ -361,7 +409,12 @@
 
             <div class="signature">
                 <p>Saya yang menjalankan amanah,</p>
-                <div class="sign-space"></div>
+                
+                <div class="sign-space">
+                    <div id="sigHelp">Sign Sini<br>(Touch/Mouse)</div>
+                    <canvas id="sigCanvas" width="200" height="55"></canvas>
+                </div>
+                
                 <p>
                     <strong>(PUAN ZAINON BINTI HAJI JUFRI)</strong><br>
                     Guru Penolong Kanan Hal Ehwal Murid<br>
@@ -402,7 +455,7 @@
     </div>
 
     <script>
-        // Pangkalan Data Murid & Kelas yang telah dibersihkan sepenuhnya
+        /* --- BAHAGIAN 1: PANGKALAN DATA MURID & KELAS --- */
         const classData = {
             "1 Al-Biruni": ["ABDUL RAYYAN MIKAIL BIN ABDUL RASHID", "AHMAD DANISH AQEEL BIN AHMAD BARDAIN", "KHALISH NAUFAL BIN KHAIRUL ARMAN", "MOHAMAD AMMAR IRFAN BIN MOHAMAD SYARAFUDDIN", "MOHAMAD ZULFAN NAIM KHALISH BIN MOHD ZULKARNAIN", "MUHAMAD AFEEF ILYAS BIN MUHAMAD GHADAFFI", "MUHAMAD NAQIB RASYDAN BIN MOHAMAD RASYID", "MUHAMMAD ADYAN NAUFAL BIN ABDUL HANIF", "MUHAMMAD AISY FIRDAUS BIN MUHAMAAD FITRI", "MUHAMMAD DAYYAN ZAFFRAN BIN ABDULLAH", "MUHAMMAD FIRAS RIZQI BIN MUHD FADZLI", "MUHAMMAD IRFAN NAUFAL BIN MUHAMMAD ILYAS", "MUHAMMAD NUH RIFQI BIN AHMAD BAZLI", "MUHAMMAD RIZWAN HAQIMIE BIN ABDUL MUZIL", "MUHAMMAD UMAR AL-KHATTAB BIN MUHAMMAD FIRDAUS", "MUHAMMAD UMAR SHARIF BIN ZUL", "WAN MUHAMMAD AMZAR BIN WAN AZMAN", "ALYA ADRIANA BINTI MOHD RIZUAN", "HANA MEDINA BINTI MOHD. AIMAN NURHAKIM", "KYAYRA NADEERA HAURA BINTI MOHAMAD KHAIRUL NIZAM", "NAURA AISYAH BINTI MOHD ASRI", "NOR AIRA JANNAH BINTI MOHD ASNAWI", "NUR AAIRA QAISARA BINTI MOHD RIZAL", "NUR AIRA AMANI BINTI ALIAS", "NUR ASSYIFA HANEEM BINTI MOHD IKBAL HAKIM", "NUR AYRA AISYAH BINTI MOHD KHAIRI", "NUR FATHIA NAYLA BINTI MUHAMMAD YUSRI", "NUR HUMAIRA BINTI MUHD LUQMAN", "NUR JASMINE HANA MEDINA BINTI HIZWAN FAZRI", "NUR QALESYA BINTI YUSOF", "NUR SOFEA MEDINA BINTI MOHD SYUFIAN", "NURDIYANA AWFIYAH BINTI ZULKIFLI", "PUTERI EILYANA BINTI MUHAMMAD SHAFID", "ROS AMIRA SAFIYA BINTI ABDULLAH", "SITI SABARISHA BINTI MOHD SALEH", "SITI NORAAFIYAH INSYIRAH BT ABU HASSAN"],
             "1 Al-Farabi": ["ADAM DANIEL BIN MOHD SUKRI", "DANIAL NUQMAN BIN ABDUL HANIF SAFWAN", "MOHAMAD MIQAEL BIN MOHAMAD FAIZIE", "MOHAMAD ZULFAQAR BIN MOHAMAD NAKIAH L", "MUHAMAD ANAS MIKAIL BIN MUHAMAD NASSRUDIN", "MUHAMMAD ADAM BIN ABDUL RAUFF", "MUHAMMAD ALIFF NAUFAL BIN ZULNIZAN", "MUHAMMAD AQIB BIN MOHD ZAMZIRO", "MUHAMMAD ELMAN AUS BIN MOHD ADILA", "MUHAMMAD IMAN NAUFAL BIN ABDUL FATTAH", "MUHAMMAD IZZ AYAAZ BIN MOHD NAZARUDI", "MUHAMMAD SYAKIR NASRAN BIN MUHAMAD SHAZUAN", "NOAH MIQAEL BIN MOHAMMAD KHAIRIL MUZAFFAR", "NOR AISY ZUFAR BIN NOR ZULHAIRIE", "NUR MUHAMMAD AAFI MUSLIM BIN ARIF FADILLAH", "WAN MUHAMMAD HARITH BIN WAN MOHD FAHMI NASRI", "ZAYYAN AAKIF BIN MOHAMAD ZULAZLAN", "ADRIANA AMANDA A/P JEFFRY", "ATHIA ZARA BINTI MOHD ZAKI", "HAURA HASNA BINTI MOHD SHASRUL HASRA", "MARYAM FATHIYYAH BINTI ABD ZUKHRUFUDDIN", "NIA QALESYA BINTI MOHAMAD AZWAN IFRAM", "NOOR SYAFILA NATASYA BINTI ABD MALIK", "NUR AFEEYA FAQIHAH BINTI MOHAMAD FARID", "NUR AIREEN MEDINA BINTI AHMAD AIZAT", "NUR ATIYA AILEEN BINTI MOHD SOBRE", "NUR AZZAHRA SAFIYYAH BINTI MOHD SIDEK", "NUR FATIHAH AMALIA BINTI MOHD ROSNI", "NUR HUMAIRA BINTI ABDUL MUEIZ", "NUR QISYA ZAHRA BINTI ROIS", "NUR SYAHIRAH SOLEHAH BINTI BADRUL HISYAM", "NURIN AMNA HUWAIDA BINTI MOHD ROKMAN", "QHADEEJA AINNUR MEDINA BINTI ANWAR SHAFIQ", "SITI AFIA MIKAYLA BINTI SH.FIZULREZUAN", "TENGKU TEH ANNISAA BINTI TENGKU MOHD IKMAN HANIFF", "WAN AISYAH NABILAH BINTI WAN MOHAMAD HAFIQ", "WAN IMAN SAFA BINTI WAN MOHAMMAD SHUKRI"],
@@ -441,6 +494,7 @@
             datalist.appendChild(opt);
         });
 
+        /* --- BAHAGIAN 2: LOGIK PAPARAN SURAT --- */
         function toggleMeetingFields() {
             const type = document.getElementById('letterType').value;
             const meetFields = document.getElementById('meetingFieldsBlock');
@@ -472,12 +526,10 @@
             const parentVal = document.getElementById('parentInput').value;
             const issueVal = document.getElementById('issueInput').value;
 
-            // Details untuk panggilan
             const meetDateVal = document.getElementById('meetDateInput').value;
             const meetTimeVal = document.getElementById('meetTimeInput').value;
             const meetPlaceVal = document.getElementById('meetPlaceInput').value;
 
-            // Format Tarikh 
             function formatDate(dVal) {
                 if(!dVal) return "";
                 const dateObj = new Date(dVal);
@@ -497,7 +549,6 @@
             document.getElementById('outClassBox').innerText = classVal || "[Kelas]";
             document.getElementById('outIssue').innerText = issueVal || "[Sila nyatakan isu disiplin di ruang borang sebelah kiri]";
 
-            // LOGIK JENIS SURAT
             const para3 = document.getElementById('outPara3');
             const para4 = document.getElementById('outPara4');
             const meetingTable = document.getElementById('meetingTableBlock');
@@ -519,6 +570,72 @@
 
                 replySlipText.innerHTML = "Dengan ini saya mengesahkan bahawa saya <strong>AKAN HADIR / TIDAK DAPAT HADIR</strong> pada tarikh dan masa yang telah ditetapkan. (Sila potong yang tidak berkenaan). <br><br>Sebab/Catatan (jika tidak hadir):";
             }
+        }
+
+        /* --- BAHAGIAN 3: SKRIP TANDATANGAN DIGITAL --- */
+        const canvas = document.getElementById('sigCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+
+        // Mouse Events
+        canvas.addEventListener('mousedown', startPosition);
+        canvas.addEventListener('mouseup', endPosition);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseout', endPosition); // if mouse leaves canvas
+
+        // Touch Events (Untuk Telefon / Tablet)
+        canvas.addEventListener('touchstart', startPosition, { passive: false });
+        canvas.addEventListener('touchend', endPosition);
+        canvas.addEventListener('touchmove', draw, { passive: false });
+
+        function getPointerPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            // Jika skrin sentuh
+            if (e.touches && e.touches.length > 0) {
+                return {
+                    x: e.touches[0].clientX - rect.left,
+                    y: e.touches[0].clientY - rect.top
+                };
+            }
+            // Jika guna mouse
+            return {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            };
+        }
+
+        function startPosition(e) {
+            e.preventDefault(); // Mengelakkan skrin scroll bila melukis (touch)
+            isDrawing = true;
+            document.getElementById('sigHelp').style.display = 'none'; // Sembunyikan teks "Sign Sini"
+            draw(e);
+        }
+
+        function endPosition() {
+            isDrawing = false;
+            ctx.beginPath(); // Reset laluan lukisan
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault();
+            
+            const pos = getPointerPos(e);
+            
+            // Gaya dakwat pen
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#000080'; // Dakwat biru gelap
+
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        }
+
+        function clearSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById('sigHelp').style.display = 'block'; // Tunjuk balik teks
         }
     </script>
 </body>
