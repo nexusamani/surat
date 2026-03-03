@@ -84,8 +84,8 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             box-sizing: border-box;
             font-family: "Times New Roman", Times, serif;
-            font-size: 12pt; 
-            line-height: 1.4; 
+            font-size: 10pt; /* Ditukar ke 10pt */
+            line-height: 1.5; /* Jarak baris dilaras untuk bacaan lebih selesa */
             position: relative;
         }
 
@@ -108,13 +108,13 @@
             display: block;
         }
         .school-name {
-            font-size: 14pt; 
+            font-size: 12pt; /* Ditukar ke 12pt (2pt lebih besar dari font asas) */
             font-weight: bold;
             margin: 0 0 5px 0;
             text-transform: uppercase;
         }
         .unit-name, .address-text {
-            font-size: 12pt; 
+            font-size: 10pt; /* Ditukar ke 10pt */
             margin: 2px 0;
             font-family: Arial, sans-serif;
             font-weight: normal;
@@ -130,7 +130,7 @@
             line-height: 1.5;
         }
         .letter-body p {
-            margin: 0 0 14px 0; /* Dikurangkan sikit utk selamatkan ruang jadual */
+            margin: 0 0 14px 0; 
             text-align: justify;
         }
         .subject {
@@ -161,7 +161,7 @@
         }
         .signature p {
             margin: 0; 
-            line-height: 1.3;
+            line-height: 1.4;
         }
         .sign-space {
             height: 35px; 
@@ -173,20 +173,20 @@
             padding: 20px;
             margin-top: 15px;
             font-family: Arial, sans-serif;
-            font-size: 12pt;
+            font-size: 10pt; /* Ditukar ke 10pt */
             background-color: #fafafa;
         }
         .action-box h4 {
             margin-top: 0;
             text-align: center;
             text-transform: uppercase;
-            font-size: 12pt;
+            font-size: 10pt; /* Ditukar ke 10pt */
             font-weight: bold;
             margin-bottom: 15px;
         }
         .cut-line-text {
             text-align: center;
-            font-size: 10pt;
+            font-size: 9pt; /* Dikecilkan sedikit supaya seimbang */
             color: #555;
             margin-top: -10px;
             margin-bottom: 20px;
@@ -403,7 +403,7 @@
     </div>
 
     <script>
-        // Pangkalan Data Murid & Kelas yang telah dibersihkan sepenuhnya
+        // Pangkalan Data Murid & Kelas
         const classData = {
             "1 Al-Biruni": ["ABDUL RAYYAN MIKAIL BIN ABDUL RASHID", "AHMAD DANISH AQEEL BIN AHMAD BARDAIN", "KHALISH NAUFAL BIN KHAIRUL ARMAN", "MOHAMAD AMMAR IRFAN BIN MOHAMAD SYARAFUDDIN", "MOHAMAD ZULFAN NAIM KHALISH BIN MOHD ZULKARNAIN", "MUHAMAD AFEEF ILYAS BIN MUHAMAD GHADAFFI", "MUHAMAD NAQIB RASYDAN BIN MOHAMAD RASYID", "MUHAMMAD ADYAN NAUFAL BIN ABDUL HANIF", "MUHAMMAD AISY FIRDAUS BIN MUHAMAAD FITRI", "MUHAMMAD DAYYAN ZAFFRAN BIN ABDULLAH", "MUHAMMAD FIRAS RIZQI BIN MUHD FADZLI", "MUHAMMAD IRFAN NAUFAL BIN MUHAMMAD ILYAS", "MUHAMMAD NUH RIFQI BIN AHMAD BAZLI", "MUHAMMAD RIZWAN HAQIMIE BIN ABDUL MUZIL", "MUHAMMAD UMAR AL-KHATTAB BIN MUHAMMAD FIRDAUS", "MUHAMMAD UMAR SHARIF BIN ZUL", "WAN MUHAMMAD AMZAR BIN WAN AZMAN", "ALYA ADRIANA BINTI MOHD RIZUAN", "HANA MEDINA BINTI MOHD. AIMAN NURHAKIM", "KYAYRA NADEERA HAURA BINTI MOHAMAD KHAIRUL NIZAM", "NAURA AISYAH BINTI MOHD ASRI", "NOR AIRA JANNAH BINTI MOHD ASNAWI", "NUR AAIRA QAISARA BINTI MOHD RIZAL", "NUR AIRA AMANI BINTI ALIAS", "NUR ASSYIFA HANEEM BINTI MOHD IKBAL HAKIM", "NUR AYRA AISYAH BINTI MOHD KHAIRI", "NUR FATHIA NAYLA BINTI MUHAMMAD YUSRI", "NUR HUMAIRA BINTI MUHD LUQMAN", "NUR JASMINE HANA MEDINA BINTI HIZWAN FAZRI", "NUR QALESYA BINTI YUSOF", "NUR SOFEA MEDINA BINTI MOHD SYUFIAN", "NURDIYANA AWFIYAH BINTI ZULKIFLI", "PUTERI EILYANA BINTI MUHAMMAD SHAFID", "ROS AMIRA SAFIYA BINTI ABDULLAH", "SITI SABARISHA BINTI MOHD SALEH", "SITI NORAAFIYAH INSYIRAH BT ABU HASSAN"],
             "1 Al-Farabi": ["ADAM DANIEL BIN MOHD SUKRI", "DANIAL NUQMAN BIN ABDUL HANIF SAFWAN", "MOHAMAD MIQAEL BIN MOHAMAD FAIZIE", "MOHAMAD ZULFAQAR BIN MOHAMAD NAKIAH L", "MUHAMAD ANAS MIKAIL BIN MUHAMAD NASSRUDIN", "MUHAMMAD ADAM BIN ABDUL RAUFF", "MUHAMMAD ALIFF NAUFAL BIN ZULNIZAN", "MUHAMMAD AQIB BIN MOHD ZAMZIRO", "MUHAMMAD ELMAN AUS BIN MOHD ADILA", "MUHAMMAD IMAN NAUFAL BIN ABDUL FATTAH", "MUHAMMAD IZZ AYAAZ BIN MOHD NAZARUDI", "MUHAMMAD SYAKIR NASRAN BIN MUHAMAD SHAZUAN", "NOAH MIQAEL BIN MOHAMMAD KHAIRIL MUZAFFAR", "NOR AISY ZUFAR BIN NOR ZULHAIRIE", "NUR MUHAMMAD AAFI MUSLIM BIN ARIF FADILLAH", "WAN MUHAMMAD HARITH BIN WAN MOHD FAHMI NASRI", "ZAYYAN AAKIF BIN MOHAMAD ZULAZLAN", "ADRIANA AMANDA A/P JEFFRY", "ATHIA ZARA BINTI MOHD ZAKI", "HAURA HASNA BINTI MOHD SHASRUL HASRA", "MARYAM FATHIYYAH BINTI ABD ZUKHRUFUDDIN", "NIA QALESYA BINTI MOHAMAD AZWAN IFRAM", "NOOR SYAFILA NATASYA BINTI ABD MALIK", "NUR AFEEYA FAQIHAH BINTI MOHAMAD FARID", "NUR AIREEN MEDINA BINTI AHMAD AIZAT", "NUR ATIYA AILEEN BINTI MOHD SOBRE", "NUR AZZAHRA SAFIYYAH BINTI MOHD SIDEK", "NUR FATIHAH AMALIA BINTI MOHD ROSNI", "NUR HUMAIRA BINTI ABDUL MUEIZ", "NUR QISYA ZAHRA BINTI ROIS", "NUR SYAHIRAH SOLEHAH BINTI BADRUL HISYAM", "NURIN AMNA HUWAIDA BINTI MOHD ROKMAN", "QHADEEJA AINNUR MEDINA BINTI ANWAR SHAFIQ", "SITI AFIA MIKAYLA BINTI SH.FIZULREZUAN", "TENGKU TEH ANNISAA BINTI TENGKU MOHD IKMAN HANIFF", "WAN AISYAH NABILAH BINTI WAN MOHAMAD HAFIQ", "WAN IMAN SAFA BINTI WAN MOHAMMAD SHUKRI"],
@@ -442,7 +442,6 @@
             datalist.appendChild(opt);
         });
 
-        // Toggle jadual info perjumpaan
         function toggleMeetingFields() {
             const type = document.getElementById('letterType').value;
             const meetFields = document.getElementById('meetingFieldsBlock');
