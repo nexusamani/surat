@@ -71,13 +71,14 @@
         .letter-container {
             width: 210mm;
             min-height: 297mm;
-            padding: 20mm;
+            /* Jarak atas dikurangkan kepada 10mm supaya logo lebih atas */
+            padding: 10mm 20mm 20mm 20mm; 
             background: white;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             box-sizing: border-box;
             font-family: "Times New Roman", Times, serif;
             font-size: 12pt;
-            line-height: 1.5;
+            line-height: 1.4; /* Dikurangkan sedikit supaya muat 1 muka surat */
             position: relative;
         }
 
@@ -85,14 +86,14 @@
         .letterhead {
             text-align: center;
             border-bottom: 2px solid #000;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
         }
         .logo-sekolah {
             width: 80px; 
             height: auto;
             display: block;
-            margin: 0 auto 10px auto; 
+            margin: 0 auto 5px auto; 
         }
         .school-name {
             font-size: 16pt;
@@ -108,16 +109,20 @@
 
         /* Letter Body */
         .letter-body {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+        }
+        .letter-body p {
+            margin-top: 8px;
+            margin-bottom: 8px;
         }
         .subject {
             font-weight: bold;
             text-transform: uppercase;
             text-decoration: underline;
-            margin: 20px 0;
+            margin: 15px 0;
         }
         .signature {
-            margin-top: 40px;
+            margin-top: 30px;
         }
 
         /* Action Box (Tear-off slip) */
@@ -154,7 +159,7 @@
         .page-break {
             break-before: page;
             page-break-before: always;
-            padding-top: 20px; /* Gives a little breathing room at the top of the new page */
+            padding-top: 15mm; /* Jarak dari atas untuk muka surat 2 */
         }
 
         /* Print Settings */
@@ -171,17 +176,13 @@
             .letter-container {
                 box-shadow: none;
                 margin: 0;
-                padding: 15mm;
+                /* Mengekalkan jarak atas cetakan yang kecil */
+                padding: 10mm 15mm 15mm 15mm; 
                 width: 100%;
-            }
-            /* Ensures the page break applies correctly when printing */
-            .page-break {
-                padding-top: 0;
-                margin-top: 0;
             }
             @page {
                 size: A4;
-                margin: 0;
+                margin: 0; /* Mengelakkan header/footer lalai (default) dari browser */
             }
         }
     </style>
@@ -229,7 +230,7 @@
         </div>
 
         <div class="letter-body">
-            <div style="text-align: right; margin-bottom: 20px;">
+            <div style="text-align: right; margin-bottom: 15px;">
                 Tarikh: <span id="outDate"><strong>[Tarikh]</strong></span>
             </div>
 
