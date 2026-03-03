@@ -76,7 +76,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             box-sizing: border-box;
             font-family: "Times New Roman", Times, serif;
-            font-size: 10pt; /* Saiz font asas diturunkan kepada 10pt */
+            font-size: 10pt; /* Saiz font asas 10pt */
             line-height: 1.6; 
             position: relative;
         }
@@ -86,7 +86,7 @@
             text-align: center;
             border-bottom: 2px solid #000;
             padding-bottom: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         .logo-sekolah {
             width: 80px; 
@@ -116,18 +116,27 @@
             margin-bottom: 20px;
         }
         .letter-body p {
-            margin-top: 18px; /* Jarak yang lebih jelas antara setiap poin */
-            margin-bottom: 18px;
+            margin-top: 15px; /* Jarak yang luas tapi terkawal antara perenggan */
+            margin-bottom: 15px;
             text-align: justify;
         }
         .subject {
             font-weight: bold;
             text-transform: uppercase;
             text-decoration: underline;
-            margin: 25px 0;
+            margin: 20px 0;
         }
+        
+        /* Signature Section Fixes */
         .signature {
-            margin-top: 40px;
+            margin-top: 25px; /* Kurangkan jarak dari teks sebelumnya */
+        }
+        .signature p {
+            margin: 0; /* Buang jarak perenggan untuk bahagian ini sahaja */
+            line-height: 1.4;
+        }
+        .sign-space {
+            height: 45px; /* Ruang muat-muat untuk tandatangan tanpa memakan ruang kertas */
         }
 
         /* Action Box (Tear-off slip) */
@@ -184,7 +193,7 @@
                 margin: 0;
                 padding: 10mm 20mm 15mm 20mm; /* Margin pencetak */
                 width: 100%;
-                min-height: auto; /* Memastikan tiada halaman kosong ketiga terhasil */
+                min-height: auto; 
             }
             .page-break {
                 padding-top: 15mm; /* Ruang atas muka surat 2 */
@@ -283,9 +292,8 @@
 
             <div class="signature">
                 <p>Saya yang menjalankan amanah,</p>
-                <br><br>
-                <p>....................................................................<br>
-                <strong>(PUAN ZAINON BINTI HAJI JUFRI)</strong><br>
+                <div class="sign-space"></div>
+                <p><strong>(PUAN ZAINON BINTI HAJI JUFRI)</strong><br>
                 Guru Penolong Kanan Hal Ehwal Murid<br>
                 Sekolah Kebangsaan Cherating</p>
             </div>
