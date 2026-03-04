@@ -171,7 +171,7 @@
 
         /* Signature Section Fixes */
         .signature {
-            margin-top: 5px; 
+            margin-top: 10px; 
         }
         .signature p {
             margin: 0; 
@@ -197,7 +197,7 @@
             transform: translate(-50%, -50%);
             font-size: 8pt;
             color: #aaa;
-            pointer-events: none; /* Let clicks pass through to canvas */
+            pointer-events: none; 
             text-align: center;
         }
 
@@ -429,6 +429,10 @@
             </div>
             
             <div class="action-box">
+                <div style="text-align: right; font-size: 9pt; margin-bottom: 5px;">
+                    Ruj. Surat: SKCRTG.700-7/1/1 ( <span id="outRef2">&nbsp;&nbsp;&nbsp;&nbsp;</span> )
+                </div>
+                
                 <h4>Keratan Maklum Balas Ibu Bapa / Penjaga</h4>
                 <p>Kepada: Guru Penolong Kanan Hal Ehwal Murid SK Cherating</p>
                 <p>Saya, penjaga kepada <strong><span id="outStudentBox">[Nama Murid]</span></strong> dari kelas <strong><span id="outClassBox">[Kelas]</span></strong> mengambil maklum tentang isu disiplin yang dimaklumkan.</p>
@@ -540,6 +544,10 @@
             }
 
             document.getElementById('outRef').innerHTML = refVal ? refVal : "&nbsp;&nbsp;&nbsp;&nbsp;";
+            
+            // PENTING: Update nombor rujukan di page 2 (keratan maklum balas) juga
+            document.getElementById('outRef2').innerHTML = refVal ? refVal : "&nbsp;&nbsp;&nbsp;&nbsp;";
+
             document.getElementById('outDate').innerHTML = dateVal ? `<strong>${formatDate(dateVal)}</strong>` : "<strong>[Tarikh]</strong>";
             
             document.getElementById('outParent').innerText = parentVal || "[Nama Ibu Bapa / Penjaga]";
@@ -577,27 +585,23 @@
         const ctx = canvas.getContext('2d');
         let isDrawing = false;
 
-        // Mouse Events
         canvas.addEventListener('mousedown', startPosition);
         canvas.addEventListener('mouseup', endPosition);
         canvas.addEventListener('mousemove', draw);
-        canvas.addEventListener('mouseout', endPosition); // if mouse leaves canvas
+        canvas.addEventListener('mouseout', endPosition); 
 
-        // Touch Events (Untuk Telefon / Tablet)
         canvas.addEventListener('touchstart', startPosition, { passive: false });
         canvas.addEventListener('touchend', endPosition);
         canvas.addEventListener('touchmove', draw, { passive: false });
 
         function getPointerPos(e) {
             const rect = canvas.getBoundingClientRect();
-            // Jika skrin sentuh
             if (e.touches && e.touches.length > 0) {
                 return {
                     x: e.touches[0].clientX - rect.left,
                     y: e.touches[0].clientY - rect.top
                 };
             }
-            // Jika guna mouse
             return {
                 x: e.clientX - rect.left,
                 y: e.clientY - rect.top
@@ -605,15 +609,15 @@
         }
 
         function startPosition(e) {
-            e.preventDefault(); // Mengelakkan skrin scroll bila melukis (touch)
+            e.preventDefault(); 
             isDrawing = true;
-            document.getElementById('sigHelp').style.display = 'none'; // Sembunyikan teks "Sign Sini"
+            document.getElementById('sigHelp').style.display = 'none'; 
             draw(e);
         }
 
         function endPosition() {
             isDrawing = false;
-            ctx.beginPath(); // Reset laluan lukisan
+            ctx.beginPath(); 
         }
 
         function draw(e) {
@@ -622,10 +626,9 @@
             
             const pos = getPointerPos(e);
             
-            // Gaya dakwat pen
             ctx.lineWidth = 2;
             ctx.lineCap = 'round';
-            ctx.strokeStyle = '#000080'; // Dakwat biru gelap
+            ctx.strokeStyle = '#000080';
 
             ctx.lineTo(pos.x, pos.y);
             ctx.stroke();
@@ -635,7 +638,7 @@
 
         function clearSignature() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            document.getElementById('sigHelp').style.display = 'block'; // Tunjuk balik teks
+            document.getElementById('sigHelp').style.display = 'block'; 
         }
     </script>
 </body>
